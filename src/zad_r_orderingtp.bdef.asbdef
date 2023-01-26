@@ -1,0 +1,29 @@
+managed implementation in class zbp_ad_r_orderingtp unique;
+strict ( 2 );
+extensible {
+               with determinations on modify;
+               with validations on save;
+               with additional save;
+            }
+
+with draft;
+
+define behavior for ZAD_R_ORDERINGTP  alias ORDERING
+extensible
+persistent table ZAD_ORDERING
+draft table ZAD_ORDERING1_D2
+lock master total etag  lastchangedat
+etag master  lastchangedat
+authorization master ( global )
+{
+
+  create;
+  update;
+  delete;
+
+    draft action Edit; draft action Activate; draft action Discard; draft action Resume; draft determine action Prepare extensible;
+
+    mapping for ZAD_ORDERING { Key1 = key1;
+                         Order_id = order_id; Ordereditem = ordereditem; product_price = product_price; Deliverydate = deliverydate; Creationdate = creationdate; Curr1 = curr1; }
+    field ( readonly ) lastchangedat;
+}

@@ -1,0 +1,15 @@
+extension
+using interface ZAD_I_ORDERINGTP
+implementation in class zbp_zad_r_orderingtp_extension unique;
+
+extend behavior for ORDERING {
+ action zzad_update_deliverydate parameter Zad_input_date result [0..1] $self;
+ validation zzad_check_delivery_date on save { create; update; field Deliverydate; }
+ determination zzcalculate_order_id on modify { create; }
+
+ extend draft determine action Prepare{
+    validation zzad_check_delivery_date;
+  }
+
+
+}
